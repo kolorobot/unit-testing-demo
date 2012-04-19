@@ -16,10 +16,12 @@
             <td>Password</td>
             <td><form:password path="password" /> <form:errors path="password" /></td>
         </tr>
+        <!--
         <tr>
             <td>Confirm password</td>
             <td><form:password path="confirmedPassword" /> <form:errors path="confirmedPassword" /></td>
         </tr>
+         -->
         <tr>
             <td colspan="2"><input type="submit" value="Register"></input></td>
         </tr>

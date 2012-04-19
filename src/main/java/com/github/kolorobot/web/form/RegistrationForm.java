@@ -5,8 +5,8 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.github.kolorobot.web.validation.SamePasswords;
 import com.github.kolorobot.web.validation.UniqueUsername;
 
-@UniqueUsername
-@SamePasswords
+// @UniqueUsername
+// @SamePasswords
 public class RegistrationForm {
 
 	@NotBlank
