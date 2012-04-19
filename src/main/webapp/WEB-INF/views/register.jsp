@@ -12,7 +12,11 @@
             <td>Password</td>
             <td><form:password path="password" /> <form:errors path="password" /></td>
         </tr>
+<<<<<<< HEAD
         <!-- 
+=======
+        <!--
+>>>>>>> refs/remotes/choose_remote_name/master
         <tr>
             <td>Confirm password</td>
             <td><form:password path="confirmedPassword" /> <form:errors path="confirmedPassword" /></td>
