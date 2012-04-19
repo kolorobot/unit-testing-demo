@@ -5,26 +5,16 @@ import org.hibernate.validator.constraints.NotBlank;
 import com.github.kolorobot.web.validation.SamePasswords;
 import com.github.kolorobot.web.validation.UniqueUsername;
 
-@UniqueUsername
-@SamePasswords
+// @UniqueUsername
+// @SamePasswords
 public class RegistrationForm {
 
-	@NotBlank
-	private String name;
 	@NotBlank
 	private String username;
 	@NotBlank
 	private String password;
 
 	private String confirmedPassword;
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
 
 	public String getUsername() {
 		return username;

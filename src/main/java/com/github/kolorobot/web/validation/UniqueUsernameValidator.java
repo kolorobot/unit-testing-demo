@@ -11,14 +11,21 @@ import com.github.kolorobot.web.form.RegistrationForm;
 public class UniqueUsernameValidator implements
 		ConstraintValidator<UniqueUsername, RegistrationForm> {
 
-	@Autowired
 	private UserRepository userRepository;
-
+	
+	public UniqueUsernameValidator() {
+		// hard-coded dependency creation makes the code hard to test
+		userRepository = new UserRepository();
+	}
+	
+//	@Autowired
+//	public void setUserRepository(UserRepository userRepository) {
+//		this.userRepository = userRepository;
+//	}
+	
 	@Override
 	public void initialize(UniqueUsername constraintAnnotation) {
-		if (userRepository == null) {
-			throw new IllegalStateException("no repository is set");
-		}
+		// intentionally left blank
 	}
 
 	@Override
@@ -26,7 +33,7 @@ public class UniqueUsernameValidator implements
 			ConstraintValidatorContext context) {
 		
 		if (value == null) {
-			return true;
+			throw new IllegalArgumentException("value must not be null");
 		}
 
 		if (value.getUsername() == null) {

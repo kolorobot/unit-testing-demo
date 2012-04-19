@@ -18,6 +18,11 @@ public class UserRepository {
 	}
 	
 	public User findByUsername(String username) {
+		
+		if(username == null) {
+			throw new IllegalArgumentException("username must not be null");
+		}
+		
 		try {
 			return entityManager
 					.createNamedQuery(User.FIND_BY_USERNAME, User.class)

@@ -1,10 +1,12 @@
 package com.github.kolorobot.web.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 
 import com.github.kolorobot.domain.User;
@@ -17,6 +19,12 @@ public class RegistrationController {
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	@InitBinder
+	public void registerStringEditor(WebDataBinder binder) {
+		// converts empty string to null
+		binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
+	}
 	
 	@RequestMapping(method = RequestMethod.GET)
 	public void register(Model model) {
@@ -32,7 +40,6 @@ public class RegistrationController {
 		}
 		
 		User user = new User(registrationForm.getUsername(), registrationForm.getPassword(), "ROLE_USER");
-		user.setName(registrationForm.getName());
 		userRepository.save(user);
 		
 		return "redirect:user";

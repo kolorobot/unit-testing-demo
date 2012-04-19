@@ -5,10 +5,6 @@
     <form:errors path="*" element="p" cssStyle="color: red;" />
     <table>
         <tr>
-            <td width="170px">Name</td>
-            <td width="400px"><form:input path="name" /> <form:errors path="name" /></td>
-        </tr>
-        <tr>
             <td width="170px">Username</td>
             <td><form:input path="username" /> <form:errors path="username" /></td>
         </tr>
@@ -16,10 +12,12 @@
             <td>Password</td>
             <td><form:password path="password" /> <form:errors path="password" /></td>
         </tr>
+        <!-- 
         <tr>
             <td>Confirm password</td>
             <td><form:password path="confirmedPassword" /> <form:errors path="confirmedPassword" /></td>
         </tr>
+         -->
         <tr>
             <td colspan="2"><input type="submit" value="Register"></input></td>
         </tr>
