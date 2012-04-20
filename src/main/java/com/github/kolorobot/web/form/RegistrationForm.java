@@ -11,11 +11,26 @@ public class RegistrationForm {
 
 	@NotBlank
 	private String username;
+
 	@NotBlank
 	private String password;
 
 	private String confirmedPassword;
+	
+	public RegistrationForm() {
 
+	}
+	
+	public RegistrationForm(String username) {
+		this.username = username;
+	}
+	
+	public RegistrationForm(String username, String password, String confirmedPassword) {
+		this(username);
+		this.password = password;
+		this.confirmedPassword = confirmedPassword;
+	}
+	
 	public String getUsername() {
 		return username;
 	}
