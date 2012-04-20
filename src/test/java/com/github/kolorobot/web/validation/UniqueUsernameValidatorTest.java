@@ -2,21 +2,18 @@ package com.github.kolorobot.web.validation;
 
 import static org.junit.Assert.*;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
+
+import com.github.kolorobot.web.form.RegistrationForm;
 
 public class UniqueUsernameValidatorTest {
 	
 	private UniqueUsernameValidator validator;
+//	private UserRepository repo;
 	
 	@Before
 	public void setup() {
 		validator = new UniqueUsernameValidator();
-	}
-	
-	@Test
-	public void test() {
-		fail("Think of some usefull tests to be written");
 	}
 	
 	@Test
@@ -31,7 +28,12 @@ public class UniqueUsernameValidatorTest {
 	
 	@Test
 	public void isValid_UserWithGivenNameExistsInRepository_ReturnsFalse() {
-		fail("not implemented");
+		// arrange
+		RegistrationForm form = new RegistrationForm("username");
+		// act
+		boolean result = validator.isValid(form, null);
+		// assert
+		// What should we assert here?
 	}
 	
 	@Test
