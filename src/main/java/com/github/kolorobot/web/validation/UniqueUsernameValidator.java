@@ -14,14 +14,9 @@ public class UniqueUsernameValidator implements
 	private UserRepository userRepository;
 	
 	public UniqueUsernameValidator() {
-		// hard-coded dependency creation makes the code hard to test
+		// what is wrong here?
 		userRepository = new UserRepository();
 	}
-	
-//	@Autowired
-//	public void setUserRepository(UserRepository userRepository) {
-//		this.userRepository = userRepository;
-//	}
 	
 	@Override
 	public void initialize(UniqueUsername constraintAnnotation) {
