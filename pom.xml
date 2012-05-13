@@ -5,7 +5,7 @@
 	<artifactId>unit-testing-demo</artifactId>
 	<packaging>war</packaging>
 	<version>1.0.0-SNAPSHOT</version>
-	<name>Spring MVC Application</name>
+	<name>Unit testing demo</name>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -205,10 +205,23 @@
 		<!-- Test -->
 		<dependency>
 			<groupId>junit</groupId>
-			<artifactId>junit</artifactId>
-			<version>4.8.2</version>
+			<artifactId>junit-dep</artifactId>
+			<version>4.10</version>
 			<scope>test</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-core</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.hamcrest</groupId>
+			<artifactId>hamcrest-library</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>

@@ -17,13 +17,13 @@ public class SamePasswordsValidator implements ConstraintValidator<SamePasswords
 		String password = value.getPassword();
 		String confirmedPassword = value.getConfirmedPassword();
 
-//		if (bothAreNull(password, confirmedPassword)) {
-//			return true;
-//		}
-//
-//		if (atLeastOneIsNull(password, confirmedPassword)) {
-//			return false;
-//		}
+		if (bothAreNull(password, confirmedPassword)) {
+			return true;
+		}
+
+		if (atLeastOneIsNull(password, confirmedPassword)) {
+			return false;
+		}
 		
 		return confirmedPassword.equals(password);
 	}

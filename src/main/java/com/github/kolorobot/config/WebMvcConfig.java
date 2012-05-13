@@ -15,6 +15,7 @@ import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandl
 public class WebMvcConfig extends WebMvcConfigurationSupport {
 	
 	private static final String MESSAGE_SOURCE = "/WEB-INF/classes/messages";
+	private static final int MESSAGE_SOURCE_CACHE_SECONDS = 5;
 	private static final String TILES = "/WEB-INF/tiles/tiles.xml";
 	private static final String VIEWS = "/WEB-INF/views/**/views.xml";
 	
@@ -33,7 +34,7 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
 	public MessageSource configureMessageSource() {
 		ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
 		messageSource.setBasename(MESSAGE_SOURCE);
-		messageSource.setCacheSeconds(5);
+		messageSource.setCacheSeconds(MESSAGE_SOURCE_CACHE_SECONDS);
 		return messageSource;
 	}
 	

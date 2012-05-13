@@ -8,20 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import com.github.kolorobot.domain.UserRepository;
 import com.github.kolorobot.web.form.RegistrationForm;
 
-public class UniqueUsernameValidator implements
-		ConstraintValidator<UniqueUsername, RegistrationForm> {
+public class UniqueUsernameValidator implements	ConstraintValidator<UniqueUsername, RegistrationForm> {
 
+	@Autowired
 	private UserRepository userRepository;
 	
-	public UniqueUsernameValidator() {
-		// what is wrong here?
-		userRepository = new UserRepository();
-	}
-	
 	@Override
-	public void initialize(UniqueUsername constraintAnnotation) {
-		// intentionally left blank
-	}
+	public void initialize(UniqueUsername constraintAnnotation) {}
 
 	@Override
 	public boolean isValid(RegistrationForm value,
