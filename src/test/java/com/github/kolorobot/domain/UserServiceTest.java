@@ -1,17 +1,17 @@
 package com.github.kolorobot.domain;
 
 import static org.junit.Assert.*;
-import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.*;
 
 import java.util.Collection;
 
+import org.hamcrest.Description;
+import org.hamcrest.TypeSafeMatcher;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
+import org.mockito.*;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,7 +34,7 @@ public class UserServiceTest {
 		// act
 		userService.initialize();
 		// assert
-		verify(userRepositoryMock, times(1)).save(any(User.class));
+		verify(userRepositoryMock).save(any(User.class));
 	}
 
 	@Test
@@ -58,18 +58,36 @@ public class UserServiceTest {
 		UserDetails userDetails = userService.loadUserByUsername("user");
 
 		// assert
-		assertEquals(demoUser.getUsername(), userDetails.getUsername());
-		assertEquals(demoUser.getPassword(), userDetails.getPassword());
-		assertTrue(hasAuthority(userDetails, demoUser.getRole()));
+		assertThat(userDetails, new IsDescribedBy(demoUser));
 	}
+	
+	private static class IsDescribedBy extends TypeSafeMatcher<UserDetails> {
 
-	private boolean hasAuthority(UserDetails userDetails, String role) {
-		Collection<? extends GrantedAuthority> authorities = userDetails.getAuthorities();
-		for(GrantedAuthority authority : authorities) {
-			if(authority.getAuthority().equals(role)) {
-				return true;
-			}
+		private final User user;
+
+		private IsDescribedBy(User user) {
+			this.user = user;
 		}
-		return false;
+
+		@Override
+		public void describeTo(Description description) {}
+
+		@Override
+		protected boolean matchesSafely(UserDetails item) {
+			return user.getUsername().equals(item.getUsername())
+					&& user.getPassword().equals(item.getPassword())
+					&& hasAuthority(item, user.getRole());
+		}
+
+		private static boolean hasAuthority(UserDetails userDetails, String role) {
+			Collection<? extends GrantedAuthority> authorities = userDetails
+					.getAuthorities();
+			for (GrantedAuthority authority : authorities) {
+				if (authority.getAuthority().equals(role)) {
+					return true;
+				}
+			}
+			return false;
+		}
 	}
 }

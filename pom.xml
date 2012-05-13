@@ -209,17 +209,17 @@
 			<version>4.10</version>
 			<scope>test</scope>
 		</dependency>
-		
 		<dependency>
 			<groupId>org.hamcrest</groupId>
 			<artifactId>hamcrest-core</artifactId>
 			<version>1.2.1</version>
+			<scope>test</scope>
 		</dependency>
-		
 		<dependency>
 			<groupId>org.hamcrest</groupId>
 			<artifactId>hamcrest-library</artifactId>
 			<version>1.2.1</version>
+			<scope>test</scope>
 		</dependency>
 		
 		<dependency>
@@ -234,7 +234,13 @@
 			<version>${org.springframework-version}</version>
 			<scope>test</scope>
 		</dependency>
-
+		<dependency>
+			<groupId>org.easytesting</groupId>
+			<artifactId>fest-assert</artifactId>
+			<version>1.4</version>
+			<scope>test</scope>
+		</dependency>
+		
 	</dependencies>
 	<build>
 		<plugins>
