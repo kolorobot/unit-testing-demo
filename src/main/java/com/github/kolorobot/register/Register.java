@@ -1,31 +1,20 @@
-package com.github.kolorobot.web.form;
+package com.github.kolorobot.register;
 
-import org.hibernate.validator.constraints.NotBlank;
+public class Register {
 
-import com.github.kolorobot.web.validation.SamePasswords;
-import com.github.kolorobot.web.validation.UniqueUsername;
-
-@UniqueUsername
-@SamePasswords
-public class RegistrationForm {
-
-	@NotBlank
 	private String username;
 
-	@NotBlank
 	private String password;
 
 	private String confirmedPassword;
 
-	public RegistrationForm() {
+	public Register() {}
 
-	}
-
-	public RegistrationForm(String username) {
+	public Register(String username) {
 		this.username = username;
 	}
 
-	public RegistrationForm(String username, String password, String confirmedPassword) {
+	public Register(String username, String password, String confirmedPassword) {
 		this(username);
 		this.password = password;
 		this.confirmedPassword = confirmedPassword;

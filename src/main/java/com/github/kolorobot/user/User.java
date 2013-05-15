@@ -1,19 +1,9 @@
-package com.github.kolorobot.domain;
+package com.github.kolorobot.user;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name = "user")
-@NamedQuery(name = User.FIND_BY_USERNAME, query = "select u from User u where u.username = :username")
 public class User {
 
-	public static final String FIND_BY_USERNAME = "User.findByUsername";
-
-	@Id
-	@GeneratedValue
 	private Long id;
 
-	@Column(unique = true)
 	private String username;
 
 	private String password;
