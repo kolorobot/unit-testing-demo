@@ -1,6 +1,5 @@
 package com.github.kolorobot.user;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -9,8 +8,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.junit.Assert.assertThat;
+import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -25,13 +23,8 @@ public class UserServiceTest {
 	@Rule
 	public ExpectedException thrown = ExpectedException.none();
 
-	@Before
-	public void before() {
-
-	}
-
 	@Test
-	public void shouldInitializeWithOneDemoUser() {
+	public void initializesWithOneDemoUser() {
 		// act
 		userService.initialize();
 		// assert
@@ -39,7 +32,7 @@ public class UserServiceTest {
 	}
 
 	@Test
-	public void shouldThrowExceptionWhenUserNotFound() {
+	public void throwsExceptionWhenUserNotFoundInRepository() {
 		// arrange
 		thrown.expect(UsernameNotFoundException.class);
 		thrown.expectMessage("user not found");
@@ -47,10 +40,11 @@ public class UserServiceTest {
 		when(userRepositoryMock.findByUsername("user")).thenReturn(null);
 		// act
 		userService.loadUserByUsername("user");
+        verify(userRepositoryMock).findByUsername("user");
 	}
 
 	@Test
-	public void shouldReturnUserDetails() {
+	public void returnsUserDetailsWhenUserFoundInRepository() {
 		// arrange
 		User demoUser = new User("user", "demo", "ROLE_USER");
 		when(userRepositoryMock.findByUsername("user")).thenReturn(demoUser);
@@ -59,6 +53,7 @@ public class UserServiceTest {
 		User userDetails = userService.loadUserByUsername("user");
 
 		// assert
-		assertThat(userDetails, equalTo((demoUser)));
+		assertThat(userDetails).isEqualTo((demoUser));
+        verify(userRepositoryMock).findByUsername("user");
 	}
 }

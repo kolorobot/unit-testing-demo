@@ -1,7 +1,6 @@
 package com.github.kolorobot.register.validation;
 
-import static org.hamcrest.Matchers.*;
-import static org.junit.Assert.*;
+import static org.fest.assertions.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 import com.github.kolorobot.register.Register;
@@ -17,67 +16,79 @@ import com.github.kolorobot.user.UserRepository;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UniqueUsernameValidatorTest {
-	
-	private static final String USERNAME = "username";
-	
-	@InjectMocks
-	private UniqueUsernameValidator validator = new UniqueUsernameValidator();
-	@Mock
-	private UserRepository userRepositoryMock;
-	@Rule
-	public ExpectedException expectedException = ExpectedException.none();
-	
-	@Test
-	public void shouldFailWhenGivenFormIsNull() {
-		
-	}
-	
-	@Test
-	public void shouldReturnFalseWhenUserExists() {
-		// arrange
-		Register form = arrangeRegistrationForm(USERNAME);
-		when(userRepositoryMock.hasUser(USERNAME)).thenReturn(true);
-		// act
-		boolean result = validator.isValid(form);
 
-		// assert
-		assertThat(result, is(false));
-		verify(userRepositoryMock).hasUser(USERNAME);
-		
-	}
-	
-	@Test
-	public void shouldReturnTrueWhenGivenUsernameIsNull() {
-		// arrange
-		Register form = arrangeRegistrationForm(null);
-		
-		// act
-		boolean result = validator.isValid(form);
-		
-		// assert
-		
-	}
+    private static final String USERNAME = "username";
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
+    @InjectMocks
+    private UniqueUsernameValidator validator = new UniqueUsernameValidator();
+    @Mock
+    private UserRepository userRepositoryMock;
 
-	@Test
-	public void shouldReturnTrueWhenUserDoesNotExist() {
-		// arrange
-		Register form = arrangeRegistrationForm(USERNAME);
-		
-		// act
-		boolean result = validator.isValid(form);
-		
-		// assert
+    @Test(expected = IllegalArgumentException.class)
+    public void throwsExceptionWhenGivenArgumentIsNull() {
+        // act
+        assertThat(validator.isValid(null))
+                .isFalse();
+    }
 
-	}
-	
-	@Test
-	public void shouldFailWhenUserRepositoryThrowsException() {
-		
-	}
-	
-	private Register arrangeRegistrationForm(String username) {
-		Register form = new Register();
-		form.setUsername(username);
-		return form;
-	}
+    @Test
+    public void isNotValidWhenUserFoundInRepository() {
+        // arrange
+        Register form = createRegistrationForm(USERNAME);
+        when(userRepositoryMock.hasUser(USERNAME)).thenReturn(true);
+
+        // act
+        boolean result = validator.isValid(form);
+
+        // assert
+        assertThat(result).isFalse();
+        verify(userRepositoryMock).hasUser(USERNAME);
+    }
+
+    @Test
+    public void isValidWhenGivenUsernameIsNull() {
+        // arrange
+        Register form = createRegistrationForm(null);
+
+        // act
+        boolean result = validator.isValid(form);
+
+        // assert
+        assertThat(result).isTrue();
+    }
+
+    @Test
+    public void isValidWhenUserDoesNotExist() {
+        // arrange
+        Register form = createRegistrationForm(USERNAME);
+        when(userRepositoryMock.hasUser(USERNAME)).thenReturn(false);
+
+        // act
+        boolean result = validator.isValid(form);
+
+        // assert
+        assertThat(result).isTrue();
+        verify(userRepositoryMock).hasUser(USERNAME);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void failsWhenUserRepositoryThrowsException() {
+        // arrange
+        Register form = createRegistrationForm(USERNAME);
+        when(userRepositoryMock.hasUser(USERNAME)).thenThrow(RuntimeException.class);
+
+        // act
+        boolean result = validator.isValid(form);
+
+        // assert
+        assertThat(result).isTrue();
+        verify(userRepositoryMock).hasUser(USERNAME);
+    }
+
+    private Register createRegistrationForm(String username) {
+        Register form = new Register();
+        form.setUsername(username);
+        return form;
+    }
 }
