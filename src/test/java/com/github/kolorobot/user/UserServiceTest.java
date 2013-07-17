@@ -14,46 +14,48 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class UserServiceTest {
 
-	@InjectMocks
-	private UserService userService = new UserService();
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+    @InjectMocks
+    private UserService userService = new UserService();
+    @Mock
+    private UserRepository userRepositoryMock;
 
-	@Mock
-	private UserRepository userRepositoryMock;
+    @Test
+    public void initializesWithOneDemoUser() {
+        // act
+        userService.initialize();
+        // assert
+        verify(userRepositoryMock).save(any(User.class));
+        verifyNoMoreInteractions(userRepositoryMock);
+    }
 
-	@Rule
-	public ExpectedException thrown = ExpectedException.none();
+    @Test
+    public void throwsExceptionWhenUserNotFoundInRepository() {
+        // arrange
+        thrown.expect(UsernameNotFoundException.class);
+        thrown.expectMessage("user not found");
 
-	@Test
-	public void initializesWithOneDemoUser() {
-		// act
-		userService.initialize();
-		// assert
-		verify(userRepositoryMock).save(any(User.class));
-	}
-
-	@Test
-	public void throwsExceptionWhenUserNotFoundInRepository() {
-		// arrange
-		thrown.expect(UsernameNotFoundException.class);
-		thrown.expectMessage("user not found");
-
-		when(userRepositoryMock.findByUsername("user")).thenReturn(null);
-		// act
-		userService.loadUserByUsername("user");
+        when(userRepositoryMock.findByUsername("user")).thenReturn(null);
+        // act
+        userService.loadUserByUsername("user");
+        // assert
         verify(userRepositoryMock).findByUsername("user");
-	}
+        verifyNoMoreInteractions(userRepositoryMock);
+    }
 
-	@Test
-	public void returnsUserDetailsWhenUserFoundInRepository() {
-		// arrange
-		User demoUser = new User("user", "demo", "ROLE_USER");
-		when(userRepositoryMock.findByUsername("user")).thenReturn(demoUser);
+    @Test
+    public void returnsUserDetailsWhenUserFoundInRepository() {
+        // arrange
+        User user = TestUsers.aUser().build();
+        when(userRepositoryMock.findByUsername(user.getUsername())).thenReturn(user);
 
-		// act
-		User userDetails = userService.loadUserByUsername("user");
+        // act
+        User userDetails = userService.loadUserByUsername(user.getUsername());
 
-		// assert
-		assertThat(userDetails).isEqualTo((demoUser));
-        verify(userRepositoryMock).findByUsername("user");
-	}
+        // assert
+        assertThat(userDetails).isEqualTo((user));
+        verify(userRepositoryMock).findByUsername(user.getUsername());
+        verifyNoMoreInteractions(userRepositoryMock);
+    }
 }

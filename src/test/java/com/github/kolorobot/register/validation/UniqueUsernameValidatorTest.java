@@ -44,6 +44,7 @@ public class UniqueUsernameValidatorTest {
         // assert
         assertThat(result).isFalse();
         verify(userRepositoryMock).hasUser(USERNAME);
+        verifyNoMoreInteractions(userRepositoryMock);
     }
 
     @Test
@@ -70,6 +71,7 @@ public class UniqueUsernameValidatorTest {
         // assert
         assertThat(result).isTrue();
         verify(userRepositoryMock).hasUser(USERNAME);
+        verifyNoMoreInteractions(userRepositoryMock);
     }
 
     @Test(expected = RuntimeException.class)
@@ -84,6 +86,7 @@ public class UniqueUsernameValidatorTest {
         // assert
         assertThat(result).isTrue();
         verify(userRepositoryMock).hasUser(USERNAME);
+        verifyNoMoreInteractions(userRepositoryMock);
     }
 
     private Register createRegistrationForm(String username) {

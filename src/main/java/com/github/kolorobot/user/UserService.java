@@ -5,7 +5,11 @@ public class UserService {
 	private UserRepository userRepository;
 
 	protected void initialize() {
-		userRepository.save(new User("user", "demo", "ROLE_USER"));
+		userRepository.save(UserBuilder.aUser()
+                .withUsername("user")
+                .withPassword("demo")
+                .inUserRole()
+                .build());
 	}
 	
 	public User loadUserByUsername(String username) throws UsernameNotFoundException {
