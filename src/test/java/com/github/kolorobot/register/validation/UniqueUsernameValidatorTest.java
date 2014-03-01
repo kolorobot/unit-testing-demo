@@ -1,6 +1,6 @@
 package com.github.kolorobot.register.validation;
 
-import static org.fest.assertions.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
 import com.github.kolorobot.register.Register;
