@@ -1,4 +1,4 @@
-package com.github.kolorobot.exceotions;
+package com.github.kolorobot.exceptions;
 
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
