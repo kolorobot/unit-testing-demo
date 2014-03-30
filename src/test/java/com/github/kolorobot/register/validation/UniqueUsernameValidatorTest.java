@@ -18,18 +18,23 @@ import com.github.kolorobot.user.UserRepository;
 public class UniqueUsernameValidatorTest {
 
     private static final String USERNAME = "username";
+
     @Rule
-    public ExpectedException expectedException = ExpectedException.none();
+    public ExpectedException thrown = ExpectedException.none();
+
     @InjectMocks
     private UniqueUsernameValidator validator = new UniqueUsernameValidator();
+
     @Mock
     private UserRepository userRepositoryMock;
 
-    @Test(expected = IllegalArgumentException.class)
+    @Test
     public void throwsExceptionWhenGivenArgumentIsNull() {
+        // arrange
+        thrown.expect(IllegalArgumentException.class);
+        thrown.expectMessage("value must not be null");
         // act
-        assertThat(validator.isValid(null))
-                .isFalse();
+        assertThat(validator.isValid(null)).isFalse();
     }
 
     @Test
@@ -74,9 +79,10 @@ public class UniqueUsernameValidatorTest {
         verifyNoMoreInteractions(userRepositoryMock);
     }
 
-    @Test(expected = RuntimeException.class)
+    @Test
     public void failsWhenUserRepositoryThrowsException() {
         // arrange
+        thrown.expect(RuntimeException.class);
         Register form = createRegistrationForm(USERNAME);
         when(userRepositoryMock.hasUser(USERNAME)).thenThrow(RuntimeException.class);
 
