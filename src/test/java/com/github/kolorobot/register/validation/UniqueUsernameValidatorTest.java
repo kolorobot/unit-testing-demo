@@ -96,8 +96,6 @@ public class UniqueUsernameValidatorTest {
     }
 
     private Register createRegistrationForm(String username) {
-        Register form = new Register();
-        form.setUsername(username);
-        return form;
+        return new Register(username);
     }
 }

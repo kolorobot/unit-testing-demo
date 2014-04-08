@@ -40,7 +40,7 @@ public class ExpectedExceptionsTest {
     @Test
     public void verifiesCustomException() {
         thrown.expect(RuntimeException.class);
-        thrown.expect(new ExceptionCodeMatches(1));
+        thrown.expect(new ExceptionCodeMatcher(1));
 
         throw new CustomException(1);
     }
@@ -52,18 +52,6 @@ public class ExpectedExceptionsTest {
 
         throw new RuntimeException("Runtime exception occurred",
                 new IllegalStateException("Illegal state"));
-    }
-
-    class CustomException extends RuntimeException {
-        private final int code;
-
-        public CustomException(int code) {
-            this.code = code;
-        }
-
-        public int getCode() {
-            return code;
-        }
     }
 
 
@@ -82,7 +70,7 @@ public class ExpectedExceptionsTest {
         @Override
         public void describeTo(Description description) {
             description.appendText("matches pattern ")
-                .appendValue(pattern);
+                    .appendValue(pattern);
         }
 
         @Override
@@ -91,53 +79,4 @@ public class ExpectedExceptionsTest {
         }
     }
 
-    private class ExceptionCodeMatches extends TypeSafeMatcher<CustomException> {
-        private int code;
-
-        public ExceptionCodeMatches(int code) {
-            this.code = code;
-        }
-
-        @Override
-        protected boolean matchesSafely(CustomException item) {
-            return item.getCode() == code;
-        }
-
-        @Override
-        public void describeTo(Description description) {
-            description.appendText("expects code ")
-                    .appendValue(code);
-        }
-
-        @Override
-        protected void describeMismatchSafely(CustomException item, Description mismatchDescription) {
-            mismatchDescription.appendText("was ")
-                    .appendValue(item.getCode());
-        }
-    }
-
-    private static class CauseMatcher extends TypeSafeMatcher<Throwable> {
-
-        private final Class<? extends Throwable> type;
-        private final String expectedMessage;
-
-        public CauseMatcher(Class<? extends Throwable> type, String expectedMessage) {
-            this.type = type;
-            this.expectedMessage = expectedMessage;
-        }
-
-        @Override
-        protected boolean matchesSafely(Throwable item) {
-            return item.getClass().isAssignableFrom(type)
-                    && item.getMessage().contains(expectedMessage);
-        }
-
-        @Override
-        public void describeTo(Description description) {
-            description.appendText("expects type ")
-                    .appendValue(type)
-                    .appendText(" and a message ")
-                    .appendValue(expectedMessage);
-        }
-    }
 }
