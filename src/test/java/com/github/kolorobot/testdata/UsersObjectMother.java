@@ -1,6 +1,6 @@
-package com.github.kolorobot.user;
+package com.github.kolorobot.testdata;
 
-public final class TestUsers {
+public final class UsersObjectMother {
 
     public static UserBuilder aUser() {
         return UserBuilder.aUser()

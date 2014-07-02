@@ -1,11 +1,11 @@
-package com.github.kolorobot.register.validation;
+package com.github.kolorobot.basic;
 
-import com.github.kolorobot.register.Register;
+import com.github.kolorobot.testdata.Register;
 
 public class SamePasswordsValidator {
 
 	/**
-	 * Validates given {@link com.github.kolorobot.register.Register} to check if password and confirmedPassword
+	 * Validates given {@link com.github.kolorobot.testdata.Register} to check if password and confirmedPassword
 	 * are equal.
 	 * 
 	 * Validation algorithm is as follows:

@@ -1,6 +1,6 @@
-package com.github.kolorobot.exceptions;
+package com.github.kolorobot.exceptions.junit4rule;
 
-class CustomException extends RuntimeException {
+public class CustomException extends RuntimeException {
     private final int code;
 
     public CustomException(int code) {

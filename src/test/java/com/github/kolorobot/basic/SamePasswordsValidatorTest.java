@@ -1,6 +1,7 @@
-package com.github.kolorobot.register.validation;
+package com.github.kolorobot.basic;
 
-import com.github.kolorobot.register.Register;
+import com.github.kolorobot.testdata.Register;
+import com.github.kolorobot.testdata.RegistrationsObjectMother;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,7 +20,7 @@ public class SamePasswordsValidatorTest {
     @Test
     public void isValidWhenPasswordsMatch() {
         // arrange
-        Register registerObj = new Register(null, "x", "x");
+        Register registerObj = RegistrationsObjectMother.registration(null, "x", "x");
         // act & assert
         assertThat(validator.isValid(registerObj)).isTrue();
     }

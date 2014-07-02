@@ -1,9 +1,11 @@
-package com.github.kolorobot.register.validation;
+package com.github.kolorobot.mockito;
 
+import static com.github.kolorobot.testdata.RegistrationsObjectMother.registrationWithNoPassword;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
 
-import com.github.kolorobot.register.Register;
+import com.github.kolorobot.testdata.Register;
+import com.github.kolorobot.testdata.RegistrationsObjectMother;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -11,8 +13,6 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-
-import com.github.kolorobot.user.UserRepository;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UniqueUsernameValidatorTest {
@@ -40,7 +40,7 @@ public class UniqueUsernameValidatorTest {
     @Test
     public void isNotValidWhenUserFoundInRepository() {
         // arrange
-        Register form = createRegistrationForm(USERNAME);
+        Register form = registrationWithNoPassword(USERNAME);
         when(userRepositoryMock.hasUser(USERNAME)).thenReturn(true);
 
         // act
@@ -55,7 +55,7 @@ public class UniqueUsernameValidatorTest {
     @Test
     public void isValidWhenGivenUsernameIsNull() {
         // arrange
-        Register form = createRegistrationForm(null);
+        Register form = registrationWithNoPassword(null);
 
         // act
         boolean result = validator.isValid(form);
@@ -67,7 +67,7 @@ public class UniqueUsernameValidatorTest {
     @Test
     public void isValidWhenUserDoesNotExist() {
         // arrange
-        Register form = createRegistrationForm(USERNAME);
+        Register form = registrationWithNoPassword(USERNAME);
         when(userRepositoryMock.hasUser(USERNAME)).thenReturn(false);
 
         // act
@@ -83,7 +83,7 @@ public class UniqueUsernameValidatorTest {
     public void failsWhenUserRepositoryThrowsException() {
         // arrange
         thrown.expect(RuntimeException.class);
-        Register form = createRegistrationForm(USERNAME);
+        Register form = registrationWithNoPassword(USERNAME);
         when(userRepositoryMock.hasUser(USERNAME)).thenThrow(RuntimeException.class);
 
         // act
@@ -95,7 +95,5 @@ public class UniqueUsernameValidatorTest {
         verifyNoMoreInteractions(userRepositoryMock);
     }
 
-    private Register createRegistrationForm(String username) {
-        return new Register(username);
-    }
+
 }

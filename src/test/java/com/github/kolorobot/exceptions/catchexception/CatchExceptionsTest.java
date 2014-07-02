@@ -1,16 +1,16 @@
-package com.github.kolorobot.exceptions;
+package com.github.kolorobot.exceptions.catchexception;
 
 import org.junit.Test;
 
-import static com.googlecode.catchexception.CatchException.*;
-import static com.googlecode.catchexception.apis.CatchExceptionAssertJ.*;
-import static org.junit.Assert.*;
+import static com.googlecode.catchexception.CatchException.caughtException;
+import static com.googlecode.catchexception.apis.CatchExceptionAssertJ.then;
+import static com.googlecode.catchexception.apis.CatchExceptionAssertJ.when;
 
 public class CatchExceptionsTest {
 
     @Test
     public void verifiesTypeAndMessage() {
-        when(new ExceptionThrower()).someMethod();
+        when(new DummyService()).someMethod();
 
         then(caughtException())
                 .isInstanceOf(RuntimeException.class)
@@ -23,7 +23,7 @@ public class CatchExceptionsTest {
 
     @Test
     public void verifiesCauseType() {
-        when(new ExceptionThrower()).someOtherMethod();
+        when(new DummyService()).someOtherMethod();
         then(caughtException())
                 .isInstanceOf(RuntimeException.class)
                 .hasMessage("Runtime exception occurred")
@@ -31,9 +31,14 @@ public class CatchExceptionsTest {
                 .hasRootCauseExactlyInstanceOf(IllegalStateException.class);
     }
 
-    @Test
-    public void verifiesCustomException() {
-        catchException(new ExceptionThrower(), CustomException.class).yetAnotherMethod(500);
-        assertThat((CustomException) caughtException(), new ExceptionCodeMatcher(500));
+    static class DummyService {
+        public void someMethod() {
+            throw new RuntimeException("Runtime exception occurred");
+        }
+
+        public void someOtherMethod() {
+            throw new RuntimeException("Runtime exception occurred",
+                    new IllegalStateException("Illegal state"));
+        }
     }
 }

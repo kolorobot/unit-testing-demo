@@ -1,4 +1,4 @@
-package com.github.kolorobot.register;
+package com.github.kolorobot.testdata;
 
 public class Register {
 
@@ -7,8 +7,6 @@ public class Register {
 	private String password;
 
 	private String confirmedPassword;
-
-	public Register() {}
 
 	public Register(String username) {
 		this.username = username;
@@ -24,24 +22,12 @@ public class Register {
 		return username;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
 	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public String getConfirmedPassword() {
 		return confirmedPassword;
-	}
-
-	public void setConfirmedPassword(String confirmedPassword) {
-		this.confirmedPassword = confirmedPassword;
 	}
 
 }

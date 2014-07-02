@@ -1,4 +1,4 @@
-package com.github.kolorobot.user;
+package com.github.kolorobot.testdata;
 
 public class UserBuilder {
 

@@ -1,4 +1,6 @@
-package com.github.kolorobot.user;
+package com.github.kolorobot.mockito;
+
+import com.github.kolorobot.testdata.User;
 
 public interface UserRepository {
 

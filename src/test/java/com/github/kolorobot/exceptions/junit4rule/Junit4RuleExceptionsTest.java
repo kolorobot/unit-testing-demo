@@ -1,4 +1,4 @@
-package com.github.kolorobot.exceptions;
+package com.github.kolorobot.exceptions.junit4rule;
 
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
@@ -8,7 +8,7 @@ import org.junit.rules.ExpectedException;
 
 import static org.hamcrest.CoreMatchers.startsWith;
 
-public class ExpectedExceptionsTest {
+public class Junit4RuleExceptionsTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();

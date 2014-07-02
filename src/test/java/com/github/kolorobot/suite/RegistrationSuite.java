@@ -1,5 +1,7 @@
-package com.github.kolorobot.register.validation;
+package com.github.kolorobot.suite;
 
+import com.github.kolorobot.basic.SamePasswordsValidatorTest;
+import com.github.kolorobot.mockito.UniqueUsernameValidatorTest;
 import org.junit.runner.RunWith;
 
 @RunWith(org.junit.runners.Suite.class)
