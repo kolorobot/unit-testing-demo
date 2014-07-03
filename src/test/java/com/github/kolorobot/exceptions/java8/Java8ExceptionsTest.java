@@ -8,7 +8,8 @@ public class Java8ExceptionsTest {
 
     @Test
     public void verifiesTypeAndMessage() {
-        assertThrown(new DummyService()::someMethod)
+        assertThrown(new DummyService()::someMethod) // method reference
+                // assertions
                 .isInstanceOf(RuntimeException.class)
                 .hasMessage("Runtime exception occurred")
                 .hasNoCause();
@@ -16,21 +17,32 @@ public class Java8ExceptionsTest {
 
     @Test
     public void verifiesCauseType() {
-        assertThrown(new DummyService()::someOtherMethod)
+        assertThrown(() -> new DummyService().someOtherMethod(true)) // lambda expression
+                // assertions
                 .isInstanceOf(RuntimeException.class)
                 .hasMessage("Runtime exception occurred")
                 .hasCauseInstanceOf(IllegalStateException.class);
     }
 
     @Test
-    public void verifiesCheckedExceptionThrownByConstructor() {
-        assertThrown(DummyService2::new)
-                .isInstanceOf(Exception.class)
-                .hasMessage("Constructor exception occurred");
-
-        assertThrown(() -> new DummyService2(true))
+    public void verifiesCheckedExceptionThrownByDefaultConstructor() {
+        assertThrown(DummyService2::new) // constructor reference
+                // assertions
                 .isInstanceOf(Exception.class)
                 .hasMessage("Constructor exception occurred");
     }
 
+    @Test
+    public void verifiesCheckedExceptionThrownConstructor() {
+        assertThrown(() -> new DummyService2(true)) // lambda expression
+                // assertions
+                .isInstanceOf(Exception.class)
+                .hasMessage("Constructor exception occurred");
+    }
+
+    @Test(expected = ExceptionNotThrownAssertionError.class) // making test pass
+    public void failsWhenNoExceptionIsThrown() {
+        // expected exception not thrown
+        assertThrown(() -> System.out.println());
+    }
 }

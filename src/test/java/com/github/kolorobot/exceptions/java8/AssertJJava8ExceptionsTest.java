@@ -20,7 +20,7 @@ public class AssertJJava8ExceptionsTest {
 
     @Test
     public void verifiesCauseType() {
-        assertThrown(new DummyService()::someOtherMethod)
+        assertThrown(() -> new DummyService().someOtherMethod(true))
                 .isInstanceOf(RuntimeException.class)
                 .hasMessage("Runtime exception occurred")
                 .hasCauseExactlyInstanceOf(IllegalStateException.class)
