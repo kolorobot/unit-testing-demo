@@ -3,6 +3,7 @@ package com.github.kolorobot.exceptions.java8;
 import org.junit.Test;
 
 import static com.github.kolorobot.exceptions.java8.ThrowableAssertion.assertThrown;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class Java8ExceptionsTest {
 
@@ -44,5 +45,19 @@ public class Java8ExceptionsTest {
     public void failsWhenNoExceptionIsThrown() {
         // expected exception not thrown
         assertThrown(() -> System.out.println());
+    }
+
+    @Test
+    public void aaaStyle() {
+        // arrange
+        DummyService dummyService = new DummyService();
+
+        // act
+        Throwable throwable = ThrowableCaptor.captureThrowable(dummyService::someMethod);
+
+        // assert
+        assertThat(throwable)
+                .isNotNull()
+                .hasMessage("Runtime exception occurred");
     }
 }
