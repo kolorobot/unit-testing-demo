@@ -60,6 +60,13 @@ public class JunitExecutionTest {
         Assert.assertTrue(true);
     }
 
+    @Test
+    @Ignore
+    public void ignored() { // won't run
+        LOGGER.info("ignored");
+        Assert.assertTrue(false);
+    }
+
     class Helper {
         Helper() {
             LOGGER.info("Helper ctor");
