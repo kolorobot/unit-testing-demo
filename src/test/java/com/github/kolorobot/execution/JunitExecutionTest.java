@@ -48,14 +48,13 @@ public class JunitExecutionTest {
     //
 
     @Test
-    public void test1() {
+    public void test1() { // must be public and void
         LOGGER.info("test1");
         Assert.assertTrue(true);
-
     }
 
     @Test
-    public void test2() {
+    public void test2() throws Exception { // can declare exceptions
         LOGGER.info("test2");
         Assert.assertTrue(true);
     }
