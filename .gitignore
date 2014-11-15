@@ -3,4 +3,6 @@
 /.project
 /.classpath
 /.idea
+/.gradle
 *.iml
+*.ipr
