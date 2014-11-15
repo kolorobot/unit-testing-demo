@@ -6,6 +6,10 @@ public class RegistrationsObjectMother {
         return new Register(username, password, confirmedPassword);
     }
 
+    public static Register registrationWithNoUsername(String password, String confirmedPassword) {
+        return new Register(null, password, confirmedPassword);
+    }
+
     public static Register registrationWithNoPassword(String username) {
         return new Register(username);
     }

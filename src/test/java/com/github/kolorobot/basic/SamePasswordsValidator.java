@@ -15,21 +15,24 @@ public class SamePasswordsValidator {
 	 * <li>it should return false when password is null</li>
 	 * <li>it should return true when confirmed password and password is null</li>
 	 * </ul>
-	 *
 	 */
 	public boolean isValid(Register value) {
-		
+
+		if (value == null) {
+			throw new IllegalArgumentException("argument cannot be null");
+		}
+
 		String password = value.getPassword();
 		String confirmedPassword = value.getConfirmedPassword();
 
-//		if (bothAreNull(password, confirmedPassword)) {
-//			return true;
-//		}
-//
-//		if (atLeastOneIsNull(password, confirmedPassword)) {
-//			return false;
-//		}
-		
+		if (bothAreNull(password, confirmedPassword)) {
+			return true;
+		}
+
+		if (atLeastOneIsNull(password, confirmedPassword)) {
+			return false;
+		}
+
 		return confirmedPassword.equals(password);
 	}
 
