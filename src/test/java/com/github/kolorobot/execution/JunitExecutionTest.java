@@ -16,7 +16,7 @@ public class JunitExecutionTest {
 
     // No-arg constructor
     public JunitExecutionTest() {
-        LOGGER.info("JunitExecutionTest.JunitExecutionTest");
+        LOGGER.info("JunitExecutionTest ctor");
     }
 
     //
@@ -25,22 +25,22 @@ public class JunitExecutionTest {
 
     @BeforeClass
     public static void beforeClass() {
-        LOGGER.info("JunitExecutionTest.beforeClass");
+        LOGGER.info("beforeClass");
     }
 
     @Before
     public void before() {
-        LOGGER.info("JunitExecutionTest.before");
+        LOGGER.info("before");
     }
 
     @AfterClass
     public static void afterClass() {
-        LOGGER.info("JunitExecutionTest.afterClass");
+        LOGGER.info("afterClass");
     }
 
     @After
     public void after() {
-        LOGGER.info("JunitExecutionTest.after");
+        LOGGER.info("after");
     }
 
     //
@@ -49,20 +49,20 @@ public class JunitExecutionTest {
 
     @Test
     public void test1() {
-        LOGGER.info("JunitExecutionTest.test1");
+        LOGGER.info("test1");
         Assert.assertTrue(true);
 
     }
 
     @Test
     public void test2() {
-        LOGGER.info("JunitExecutionTest.test2");
+        LOGGER.info("test2");
         Assert.assertTrue(true);
     }
 
     class Helper {
         Helper() {
-            LOGGER.info("Helper.Helper");
+            LOGGER.info("Helper ctor");
         }
     }
 }
