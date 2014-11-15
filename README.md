@@ -27,3 +27,5 @@ Examples in this project are partly coming from blog posts at http://blog.codele
 - http://blog.codeleak.pl/2014/03/junit-expectedexception-rule-beyond.html
 - http://blog.codeleak.pl/2013/07/3-ways-of-handling-exceptions-in-junit.html
 - http://blog.codeleak.pl/2014/06/test-data-builders-and-object-mother.html
+- http://blog.codeleak.pl/2014/11/unit-testing-excercise-with-fizzbuzz.html
+- http://blog.codeleak.pl/2013/12/parametrized-junit-tests-with.html
