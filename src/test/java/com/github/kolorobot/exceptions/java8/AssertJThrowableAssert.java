@@ -8,7 +8,7 @@ public class AssertJThrowableAssert {
         try {
             exceptionThrower.throwException();
         } catch (Throwable throwable) {
-            return Assertions.assertThat(throwable);
+            return (ThrowableAssert) Assertions.assertThat(throwable);
         }
         throw new ExceptionNotThrownAssertionError();
     }
