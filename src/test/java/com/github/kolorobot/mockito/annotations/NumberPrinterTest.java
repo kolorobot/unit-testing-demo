@@ -24,7 +24,7 @@ public class NumberPrinterTest {
 
     @Before
     public void setUp() throws Exception {
-        // if MockitoJUnitRunner cannot be use for some reason
+        // if MockitoJUnitRunner cannot be used for some reason
         // MockitoAnnotations.initMocks(this) can be used
     }
 
