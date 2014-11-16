@@ -5,7 +5,7 @@ public class FizzBuzz {
     private static final int THREE = 3;
     private static final int FIVE = 5;
 
-    public static String fizzBuzz(int number) {
+    public String fizzBuzz(int number) {
         if (isDivisibleBy(number, THREE) && isDivisibleBy(number, FIVE)) {
             return "FizzBuzz";
         }
