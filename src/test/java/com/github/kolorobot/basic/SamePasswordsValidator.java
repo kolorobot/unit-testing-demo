@@ -1,11 +1,9 @@
 package com.github.kolorobot.basic;
 
-import com.github.kolorobot.testdata.Register;
-
-public class SamePasswordsValidator {
+class SamePasswordsValidator {
 
 	/**
-	 * Validates given {@link com.github.kolorobot.testdata.Register} to check if password and confirmedPassword
+	 * Validates given {@link Register} to check if password and confirmedPassword
 	 * are equal.
 	 * 
 	 * Validation algorithm is as follows:
@@ -16,7 +14,7 @@ public class SamePasswordsValidator {
 	 * <li>it should return true when confirmed password and password is null</li>
 	 * </ul>
 	 */
-	public boolean isValid(Register value) {
+	boolean isValid(Register value) {
 
 		if (value == null) {
 			throw new IllegalArgumentException("argument cannot be null");

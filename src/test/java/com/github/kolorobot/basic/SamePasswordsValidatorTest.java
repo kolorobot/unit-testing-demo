@@ -1,10 +1,8 @@
 package com.github.kolorobot.basic;
 
-import com.github.kolorobot.testdata.Register;
 import org.junit.Before;
 import org.junit.Test;
 
-import static com.github.kolorobot.testdata.RegistrationsObjectMother.registrationWithNoUsername;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SamePasswordsValidatorTest {
@@ -19,16 +17,24 @@ public class SamePasswordsValidatorTest {
     @Test
     public void isValidWhenPasswordsMatch() {
         // arrange
-        Register registerObj = registrationWithNoUsername("x", "x");
+        Register register = Register.builder()
+                .withPassword("x")
+                .withConfirmedPassword("x")
+                .build();
+
         // act & assert
-        assertThat(validator.isValid(registerObj)).isTrue();
+        assertThat(validator.isValid(register)).isTrue();
     }
 
     @Test
     public void notValidWhenPasswordsDoNotMatch() {
         // arrange
-        Register registerObj = registrationWithNoUsername("x", "y");
+        Register register = Register.builder()
+                .withPassword("x")
+                .withConfirmedPassword("y")
+                .build();
+
         // act & assert
-        assertThat(validator.isValid(registerObj)).isFalse();
+        assertThat(validator.isValid(register)).isFalse();
     }
 }
