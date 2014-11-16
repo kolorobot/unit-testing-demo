@@ -16,7 +16,7 @@ public class FizzBuzzTest {
     @Test
     @Parameters
     public void returnsNumberForNumberNotDivisibleByThreeAndFive(int number) {
-        assertThat(fizzBuzz.fizzBuzz(number)).isEqualTo("" + number);
+        assertThat(fizzBuzz.calculate(number)).isEqualTo("" + number);
     }
 
     // by convention name of parameters method starts with "parametersFor"
@@ -30,7 +30,7 @@ public class FizzBuzzTest {
     @Test
     @Parameters(method = "divisibleByThreeButNotFive")
     public void returnFizzForNumberDivisibleByThree(int number) {
-        assertThat(fizzBuzz.fizzBuzz(number)).isEqualTo("Fizz");
+        assertThat(fizzBuzz.calculate(number)).isEqualTo("Fizz");
     }
 
     public Object[] divisibleByThreeButNotFive() {
@@ -43,7 +43,7 @@ public class FizzBuzzTest {
     @Test
     @Parameters({"5", "10", "20", "25", "35", "40", "50"})
     public void returnBuzzForNumberDivisibleByFive(int number) {
-        assertThat(fizzBuzz.fizzBuzz(number)).isEqualTo("Buzz");
+        assertThat(fizzBuzz.calculate(number)).isEqualTo("Buzz");
     }
 
     public Object[] divisibleByFiveButNotThree() {
@@ -55,7 +55,7 @@ public class FizzBuzzTest {
     @Test
     @Parameters(method = "divisibleByThreeAndFive")
     public void returnFizzBuzzForNumberDivisibleByThreeAndFive(int number) {
-        assertThat(fizzBuzz.fizzBuzz(number)).isEqualTo("FizzBuzz");
+        assertThat(fizzBuzz.calculate(number)).isEqualTo("FizzBuzz");
     }
 
     public Object[] divisibleByThreeAndFive() {
@@ -71,7 +71,7 @@ public class FizzBuzzTest {
     @Test
     @Parameters
     public void fizzBuzz(int given, String expected) {
-        assertThat(fizzBuzz.fizzBuzz(given)).isEqualTo(expected);
+        assertThat(fizzBuzz.calculate(given)).isEqualTo(expected);
     }
 
     public Object[] parametersForFizzBuzz() {
