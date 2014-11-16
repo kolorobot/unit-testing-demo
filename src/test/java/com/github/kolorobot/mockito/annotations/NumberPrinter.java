@@ -1,6 +1,6 @@
 package com.github.kolorobot.mockito.annotations;
 
-public class NumberPrinter {
+class NumberPrinter {
 
     private Calculator calculator;
     private Printer printer;

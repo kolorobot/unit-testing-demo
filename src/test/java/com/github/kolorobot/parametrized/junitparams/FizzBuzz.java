@@ -1,6 +1,6 @@
 package com.github.kolorobot.parametrized.junitparams;
 
-public class FizzBuzz {
+class FizzBuzz {
 
     private static final int THREE = 3;
     private static final int FIVE = 5;
