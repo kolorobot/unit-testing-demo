@@ -20,7 +20,7 @@ public class NumberPrinterTest {
     private Calculator calculator;
 
     @InjectMocks
-    private NumberPrinter numberPrinter = new NumberPrinter(calculator, printer);
+    private NumberPrinter numberPrinter;
 
     @Before
     public void setUp() throws Exception {
@@ -44,22 +44,22 @@ public class NumberPrinterTest {
     }
 
     @Test
-    public void printsThreeNumbers() {
+    public void printsCalculatorResultsTenTimes() {
         // arrange
+        int limit = 10;
         when(calculator.calculate(anyInt()))
-                .thenReturn("1")
-                .thenReturn("2")
-                .thenReturn("3");
-        doNothing().when(printer).print("1"); // the real method will be called twice for "2" and "3"
+                .thenReturn("0")  // first invocation returns "0"
+                .thenReturn("1"); // other invocations return "1"
+
+        doNothing().when(printer)
+                .print("1"); // the real method will not be called
 
         // act
-        numberPrinter.printNumbers(3);
-
+        numberPrinter.printNumbers(limit);
         // assert
-        verify(calculator, times(3)).calculate(anyInt());
-        verify(printer).print("1");
-        verify(printer).print("2");
-        verify(printer).print("3");
-        verifyNoMoreInteractions(printer, calculator);
+        verify(calculator, times(limit)).calculate(anyInt());
+        verify(printer, times(1)).print("0");
+        verify(printer, times(limit - 1)).print("1");
+        verifyNoMoreInteractions(calculator, printer);
     }
 }
