@@ -24,7 +24,7 @@ dependencies {
     testCompile "org.objenesis:objenesis:2.1"
 
     // AssertJ
-    testCompile "org.assertj:assertj-core:1.7.0"
+    testCompile "org.assertj:assertj-core:3.0.0"
 
     // catch-exception is not supported anymore, will be removed in the future
     testCompile "com.googlecode.catch-exception:catch-exception:1.2.0"

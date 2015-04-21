@@ -21,6 +21,8 @@ Navigate to newly created folder and run:
 
 Examples in this project are partly coming from blog posts at http://blog.codeleak.pl:
 
+- http://blog.codeleak.pl/2015/04/junit-testing-exceptions-with-java-8.html
+- http://blog.codeleak.pl/2015/01/testing-with-files-and-directories-in.html
 - http://blog.codeleak.pl/2014/07/junit-testing-exception-with-java-8-and-lambda-expressions.html
 - http://blog.codeleak.pl/2014/05/spice-up-your-test-code-with-custom-assertions.html
 - http://blog.codeleak.pl/2014/04/yet-another-way-to-handle-exceptions-in.html
