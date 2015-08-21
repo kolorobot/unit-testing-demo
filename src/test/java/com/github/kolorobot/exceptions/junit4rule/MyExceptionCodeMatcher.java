@@ -1,18 +1,19 @@
 package com.github.kolorobot.exceptions.junit4rule;
 
+import com.github.kolorobot.exceptions.MyRuntimeException;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 
-class ExceptionCodeMatcher extends TypeSafeMatcher<CustomException> {
+class MyExceptionCodeMatcher extends TypeSafeMatcher<MyRuntimeException> {
 
     private int expectedCode;
 
-    public ExceptionCodeMatcher(int expectedCode) {
+    public MyExceptionCodeMatcher(int expectedCode) {
         this.expectedCode = expectedCode;
     }
 
     @Override
-    protected boolean matchesSafely(CustomException item) {
+    protected boolean matchesSafely(MyRuntimeException item) {
         return item.getCode() == expectedCode;
     }
 
@@ -23,7 +24,7 @@ class ExceptionCodeMatcher extends TypeSafeMatcher<CustomException> {
     }
 
     @Override
-    protected void describeMismatchSafely(CustomException item, Description mismatchDescription) {
+    protected void describeMismatchSafely(MyRuntimeException item, Description mismatchDescription) {
         mismatchDescription.appendText("was ")
                 .appendValue(item.getCode());
     }

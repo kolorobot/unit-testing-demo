@@ -1,5 +1,8 @@
 package com.github.kolorobot.exceptions.junit4rule;
 
+import com.github.kolorobot.exceptions.MyCheckedException;
+import com.github.kolorobot.exceptions.MyRuntimeException;
+import com.github.kolorobot.exceptions.Thrower;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 import org.junit.Rule;
@@ -13,45 +16,60 @@ public class Junit4RuleExceptionsTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
+    private Thrower thrower = new Thrower();
+
     @Test
     public void verifiesTypeAndMessage() {
-        thrown.expect(RuntimeException.class);
-        thrown.expectMessage("Runtime exception occurred");
+        thrown.expect(MyRuntimeException.class);
+        thrown.expectMessage("My custom runtime exceptions");
 
-        throw new RuntimeException("Runtime exception occurred");
+        thrower.throwsRuntime();
+    }
+
+    @Test
+    public void throwsDifferentExceptionThanExpected() throws MyCheckedException {
+        thrown.expect(MyCheckedException.class);
+        thrown.expectMessage("Expected exception to be thrown");
+
+        thrower.throwsRuntimeInsteadOfChecked();
+    }
+
+    @Test
+    public void doesNotThrowExpectedException() {
+        thrown.expect(MyRuntimeException.class);
+        thrown.reportMissingExceptionWithMessage("No exception of %s thrown");
     }
 
     @Test
     public void verifiesMessageStartsWith() {
         thrown.expect(RuntimeException.class);
-        thrown.expectMessage(startsWith("Illegal argument:"));
+        thrown.expectMessage(startsWith("My custom runtime"));
 
-        throw new RuntimeException("Illegal argument: i must be <= 0");
+        thrower.throwsRuntime();
     }
 
     @Test
     public void verifiesMessageMatchesPattern() {
         thrown.expect(RuntimeException.class);
-        thrown.expectMessage(new MatchesPattern("[Ii]llegal .*"));
+        thrown.expectMessage(new MatchesPattern("My custom runtime .*"));
 
-        throw new RuntimeException("Illegal argument: i must be <= 0");
+        thrower.throwsRuntime();
     }
 
     @Test
-    public void verifiesCustomException() {
+    public void verifiesExceptionWithCustomMatcher() {
         thrown.expect(RuntimeException.class);
-        thrown.expect(new ExceptionCodeMatcher(1));
+        thrown.expect(new MyExceptionCodeMatcher(1));
 
-        throw new CustomException(1);
+        thrower.throwsRuntimeWithCode(1);
     }
 
     @Test
     public void verifiesCauseTypeAndAMessage() {
         thrown.expect(RuntimeException.class);
-        thrown.expectCause(new CauseMatcher(IllegalStateException.class, "Illegal state"));
+        thrown.expectCause(new MyCauseMatcher(IllegalStateException.class, "Illegal state"));
 
-        throw new RuntimeException("Runtime exception occurred",
-                new IllegalStateException("Illegal state"));
+        thrower.throwsRuntimeWithCause();
     }
 
 
@@ -70,7 +88,7 @@ public class Junit4RuleExceptionsTest {
         @Override
         public void describeTo(Description description) {
             description.appendText("matches pattern ")
-                    .appendValue(pattern);
+                       .appendValue(pattern);
         }
 
         @Override

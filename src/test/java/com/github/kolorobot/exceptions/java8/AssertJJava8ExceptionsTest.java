@@ -1,5 +1,7 @@
 package com.github.kolorobot.exceptions.java8;
 
+import com.github.kolorobot.exceptions.Thrower;
+import com.github.kolorobot.exceptions.BetterThrower;
 import org.junit.Test;
 
 import static com.github.kolorobot.exceptions.java8.AssertJThrowableAssert.assertThrown;
@@ -9,7 +11,7 @@ public class AssertJJava8ExceptionsTest {
 
     @Test
     public void verifiesTypeAndMessage() {
-        assertThrown(new DummyService()::someMethod)
+        assertThrown(new Thrower()::throwsRuntime)
                 .isInstanceOf(RuntimeException.class)
                 .hasMessage("Runtime exception occurred")
                 .hasMessageStartingWith("Runtime")
@@ -20,7 +22,7 @@ public class AssertJJava8ExceptionsTest {
 
     @Test
     public void verifiesCauseType() {
-        assertThrown(() -> new DummyService().someOtherMethod(true))
+        assertThrown(() -> new Thrower().throwsRuntimeWithCause())
                 .isInstanceOf(RuntimeException.class)
                 .hasMessage("Runtime exception occurred")
                 .hasCauseExactlyInstanceOf(IllegalStateException.class)
@@ -29,11 +31,11 @@ public class AssertJJava8ExceptionsTest {
 
     @Test
     public void verifiesCheckedExceptionThrownByConstructor() {
-        assertThrown(DummyService2::new)
+        assertThrown(BetterThrower::new)
                 .isInstanceOf(Exception.class)
                 .hasMessage("Constructor exception occurred");
 
-        assertThrown(() -> new DummyService2(true))
+        assertThrown(() -> new BetterThrower(true))
                 .isInstanceOf(Exception.class)
                 .hasMessage("Constructor exception occurred");
     }

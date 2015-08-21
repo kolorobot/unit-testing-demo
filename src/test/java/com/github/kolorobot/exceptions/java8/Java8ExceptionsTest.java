@@ -1,5 +1,7 @@
 package com.github.kolorobot.exceptions.java8;
 
+import com.github.kolorobot.exceptions.Thrower;
+import com.github.kolorobot.exceptions.BetterThrower;
 import org.junit.Test;
 
 import static com.github.kolorobot.exceptions.java8.ThrowableAssertion.assertThrown;
@@ -9,7 +11,7 @@ public class Java8ExceptionsTest {
 
     @Test
     public void verifiesTypeAndMessage() {
-        assertThrown(new DummyService()::someMethod) // method reference
+        assertThrown(new Thrower()::throwsRuntime) // method reference
                 // assertions
                 .isInstanceOf(RuntimeException.class)
                 .hasMessage("Runtime exception occurred")
@@ -18,7 +20,7 @@ public class Java8ExceptionsTest {
 
     @Test
     public void verifiesCauseType() {
-        assertThrown(() -> new DummyService().someOtherMethod(true)) // lambda expression
+        assertThrown(() -> new Thrower().throwsRuntimeWithCause()) // lambda expression
                 // assertions
                 .isInstanceOf(RuntimeException.class)
                 .hasMessage("Runtime exception occurred")
@@ -27,7 +29,7 @@ public class Java8ExceptionsTest {
 
     @Test
     public void verifiesCheckedExceptionThrownByDefaultConstructor() {
-        assertThrown(DummyService2::new) // constructor reference
+        assertThrown(BetterThrower::new) // constructor reference
                 // assertions
                 .isInstanceOf(Exception.class)
                 .hasMessage("Constructor exception occurred");
@@ -35,7 +37,7 @@ public class Java8ExceptionsTest {
 
     @Test
     public void verifiesCheckedExceptionThrownConstructor() {
-        assertThrown(() -> new DummyService2(true)) // lambda expression
+        assertThrown(() -> new BetterThrower(true)) // lambda expression
                 // assertions
                 .isInstanceOf(Exception.class)
                 .hasMessage("Constructor exception occurred");
@@ -50,10 +52,10 @@ public class Java8ExceptionsTest {
     @Test
     public void aaaStyle() {
         // arrange
-        DummyService dummyService = new DummyService();
+        Thrower thrower = new Thrower();
 
         // act
-        Throwable throwable = ThrowableCaptor.captureThrowable(dummyService::someMethod);
+        Throwable throwable = ThrowableCaptor.captureThrowable(thrower::throwsRuntime);
 
         // assert
         assertThat(throwable)

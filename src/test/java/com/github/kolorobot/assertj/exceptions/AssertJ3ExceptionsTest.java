@@ -1,5 +1,8 @@
 package com.github.kolorobot.assertj.exceptions;
 
+import com.github.kolorobot.exceptions.BetterThrower;
+import com.github.kolorobot.exceptions.MyRuntimeException;
+import com.github.kolorobot.exceptions.Thrower;
 import org.junit.Ignore;
 import org.junit.Test;
 
@@ -9,36 +12,36 @@ public class AssertJ3ExceptionsTest {
 
     @Test
     public void verifiesTypeAndMessage() {
-        assertThatThrownBy(new DummyService()::someMethod) // method reference
-                // assertions
-                .isInstanceOf(RuntimeException.class)
-                .hasMessage("Runtime exception occurred")
-                .hasNoCause();
+        assertThatThrownBy(new Thrower()::throwsRuntime) // method reference
+            // assertions
+            .isInstanceOf(MyRuntimeException.class)
+            .hasMessage("My custom runtime exception")
+            .hasNoCause();
     }
 
     @Test
     public void verifiesCauseType() {
-        assertThatThrownBy(() -> new DummyService().someOtherMethod(true)) // lambda expression
-                // assertions
-                .isInstanceOf(RuntimeException.class)
-                .hasMessage("Runtime exception occurred")
-                .hasCauseInstanceOf(IllegalStateException.class);
+        assertThatThrownBy(() -> new Thrower().throwsRuntimeWithCause()) // lambda expression
+            // assertions
+            .isInstanceOf(MyRuntimeException.class)
+            .hasMessage("My custom runtime exception")
+            .hasCauseInstanceOf(IllegalStateException.class);
     }
 
     @Test
     public void verifiesCheckedExceptionThrownByDefaultConstructor() {
-        assertThatThrownBy(DummyService2::new) // constructor reference
-                // assertions
-                .isInstanceOf(Exception.class)
-                .hasMessage("Constructor exception occurred");
+        assertThatThrownBy(BetterThrower::new) // constructor reference
+            // assertions
+            .isInstanceOf(Exception.class)
+            .hasMessage("Constructor exception occurred");
     }
 
     @Test
     public void verifiesCheckedExceptionThrownConstructor() {
-        assertThatThrownBy(() -> new DummyService2(true)) // lambda expression
-                // assertions
-                .isInstanceOf(Exception.class)
-                .hasMessage("Constructor exception occurred");
+        assertThatThrownBy(() -> new BetterThrower(true)) // lambda expression
+            // assertions
+            .isInstanceOf(Exception.class)
+            .hasMessage("Constructor exception occurred");
     }
 
     @Ignore // normally, it would fail
@@ -51,14 +54,14 @@ public class AssertJ3ExceptionsTest {
     @Test
     public void aaaStyle() {
         // arrange
-        DummyService dummyService = new DummyService();
+        Thrower Thrower = new Thrower();
 
         // act
-        Throwable throwable = catchThrowable(dummyService::someMethod);
+        Throwable throwable = catchThrowable(Thrower::throwsRuntime);
 
         // assert
         assertThat(throwable)
-                .isNotNull()
-                .hasMessage("Runtime exception occurred");
+            .isNotNull()
+            .hasMessage("My custom runtime exception");
     }
 }
