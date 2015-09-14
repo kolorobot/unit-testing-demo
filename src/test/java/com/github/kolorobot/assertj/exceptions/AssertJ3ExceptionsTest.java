@@ -38,13 +38,12 @@ public class AssertJ3ExceptionsTest {
 
     @Test
     public void verifiesCheckedExceptionThrownConstructor() {
-        assertThatThrownBy(() -> new BetterThrower(true)) // lambda expression
+        assertThatThrownBy(() -> new BetterThrower()) // lambda expression
             // assertions
             .isInstanceOf(Exception.class)
             .hasMessage("Constructor exception occurred");
     }
 
-    @Ignore // normally, it would fail
     @Test
     public void failsWhenNoExceptionIsThrown() {
         // expected exception not thrown

@@ -13,8 +13,8 @@ public class AssertJJava8ExceptionsTest {
     public void verifiesTypeAndMessage() {
         assertThrown(new Thrower()::throwsRuntime)
                 .isInstanceOf(RuntimeException.class)
-                .hasMessage("Runtime exception occurred")
-                .hasMessageStartingWith("Runtime")
+                .hasMessage("My custom runtime exception")
+                .hasMessageStartingWith("My custom")
                 .hasMessageEndingWith("occurred")
                 .hasMessageContaining("exception")
                 .hasNoCause();
@@ -24,7 +24,7 @@ public class AssertJJava8ExceptionsTest {
     public void verifiesCauseType() {
         assertThrown(() -> new Thrower().throwsRuntimeWithCause())
                 .isInstanceOf(RuntimeException.class)
-                .hasMessage("Runtime exception occurred")
+                .hasMessage("My custom runtime exception")
                 .hasCauseExactlyInstanceOf(IllegalStateException.class)
                 .hasRootCauseExactlyInstanceOf(IllegalStateException.class);
     }
@@ -35,7 +35,7 @@ public class AssertJJava8ExceptionsTest {
                 .isInstanceOf(Exception.class)
                 .hasMessage("Constructor exception occurred");
 
-        assertThrown(() -> new BetterThrower(true))
+        assertThrown(() -> new BetterThrower())
                 .isInstanceOf(Exception.class)
                 .hasMessage("Constructor exception occurred");
     }

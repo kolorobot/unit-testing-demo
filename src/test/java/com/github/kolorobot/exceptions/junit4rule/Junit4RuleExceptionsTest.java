@@ -21,7 +21,7 @@ public class Junit4RuleExceptionsTest {
     @Test
     public void verifiesTypeAndMessage() {
         thrown.expect(MyRuntimeException.class);
-        thrown.expectMessage("My custom runtime exceptions");
+        thrown.expectMessage("My custom runtime exception");
 
         thrower.throwsRuntime();
     }

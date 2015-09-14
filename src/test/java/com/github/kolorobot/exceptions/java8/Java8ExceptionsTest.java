@@ -14,7 +14,7 @@ public class Java8ExceptionsTest {
         assertThrown(new Thrower()::throwsRuntime) // method reference
                 // assertions
                 .isInstanceOf(RuntimeException.class)
-                .hasMessage("Runtime exception occurred")
+                .hasMessage("My custom runtime exception")
                 .hasNoCause();
     }
 
@@ -23,7 +23,7 @@ public class Java8ExceptionsTest {
         assertThrown(() -> new Thrower().throwsRuntimeWithCause()) // lambda expression
                 // assertions
                 .isInstanceOf(RuntimeException.class)
-                .hasMessage("Runtime exception occurred")
+                .hasMessage("My custom runtime exception")
                 .hasCauseInstanceOf(IllegalStateException.class);
     }
 
@@ -37,7 +37,7 @@ public class Java8ExceptionsTest {
 
     @Test
     public void verifiesCheckedExceptionThrownConstructor() {
-        assertThrown(() -> new BetterThrower(true)) // lambda expression
+        assertThrown(() -> new BetterThrower()) // lambda expression
                 // assertions
                 .isInstanceOf(Exception.class)
                 .hasMessage("Constructor exception occurred");
@@ -60,6 +60,6 @@ public class Java8ExceptionsTest {
         // assert
         assertThat(throwable)
                 .isNotNull()
-                .hasMessage("Runtime exception occurred");
+                .hasMessage("My custom runtime exception");
     }
 }
