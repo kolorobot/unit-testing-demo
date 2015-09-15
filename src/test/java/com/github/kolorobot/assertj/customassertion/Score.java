@@ -5,21 +5,18 @@ import java.util.List;
 
 class Score {
     public static final int ZERO = 0;
-    private int value = ZERO;
-
-    private final Scorable scorable;
     private final List<Dice> combination;
     private final List<Dice> reminder;
+    private int value = ZERO;
 
-    private Score(Scorable scorable, int value, List<Dice> combination, List<Dice> reminder) {
-        this.scorable = scorable;
+    private Score(int value, List<Dice> combination, List<Dice> reminder) {
         this.value = value;
         this.combination = Collections.unmodifiableList(combination);
         this.reminder = Collections.unmodifiableList(reminder);
     }
 
-    public static Builder scoreBuilder(Scorable scorable) {
-        return new Builder(scorable);
+    public static Builder scoreBuilder() {
+        return new Builder();
     }
 
     public int getValue() {
@@ -34,10 +31,6 @@ class Score {
         return combination;
     }
 
-    public Scorable getScorable() {
-        return scorable;
-    }
-
     public boolean isGreaterThanZero() {
         return getValue() > ZERO;
     }
@@ -47,10 +40,9 @@ class Score {
         private int value = Score.ZERO;
         private List<Dice> combination = Collections.emptyList();
         private List<Dice> reminder = Collections.emptyList();
-        private Scorable scorable;
 
-        private Builder(Scorable scorable) {
-            this.scorable = scorable;
+        private Builder() {
+
         }
 
         public Builder withValue(int value) {
@@ -75,7 +67,7 @@ class Score {
         }
 
         public Score build() {
-            return new Score(scorable, value, combination, reminder);
+            return new Score(value, combination, reminder);
         }
     }
 }
