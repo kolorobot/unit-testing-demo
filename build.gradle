@@ -30,9 +30,9 @@ dependencies {
     testCompile "com.googlecode.catch-exception:catch-exception:1.2.0"
 
     // JUnitParams
-    testCompile "pl.pragmatists:JUnitParams:1.0.3"
+    testCompile "pl.pragmatists:JUnitParams:1.0.5"
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.2'
+    gradleVersion = '2.9'
 }

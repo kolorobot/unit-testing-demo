@@ -5,7 +5,6 @@ import junitparams.Parameters;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static junitparams.JUnitParamsRunner.$;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(JUnitParamsRunner.class)
@@ -21,9 +20,9 @@ public class FizzBuzzTest {
 
     // by convention name of parameters method starts with "parametersFor"
     public Object[] parametersForReturnsNumberForNumberNotDivisibleByThreeAndFive() {
-        return $(
-                1, 2, 4, 7, 11, 13, 14
-        );
+        return new Object[]{
+            1, 2, 4, 7, 11, 13, 14
+        };
     }
 
     // parameters method name provided
@@ -34,9 +33,9 @@ public class FizzBuzzTest {
     }
 
     public Object[] divisibleByThreeButNotFive() {
-        return $(
-                3, 6, 9, 12, 18, 21, 24
-        );
+        return new Object[]{
+            3, 6, 9, 12, 18, 21, 24
+        };
     }
 
     // parameters provided directly as String array
@@ -47,9 +46,9 @@ public class FizzBuzzTest {
     }
 
     public Object[] divisibleByFiveButNotThree() {
-        return $(
-                5, 10, 20, 25, 35, 40, 50
-        );
+        return new Object[]{
+            5, 10, 20, 25, 35, 40, 50
+        };
     }
 
     @Test
@@ -59,9 +58,9 @@ public class FizzBuzzTest {
     }
 
     public Object[] divisibleByThreeAndFive() {
-        return $(
-                15, 30, 45, 60, 75, 90
-        );
+        return new Object[]{
+            15, 30, 45, 60, 75, 90
+        };
     }
 
     //
@@ -75,17 +74,17 @@ public class FizzBuzzTest {
     }
 
     public Object[] parametersForFizzBuzz() {
-        return $(
-                $(1, "1"),
-                $(2, "2"),
-                $(3, "Fizz"),
-                $(4, "4"),
-                $(5, "Buzz"),
-                $(6, "Fizz"),
-                $(7, "7"),
-                $(10, "Buzz"),
-                $(15, "FizzBuzz"),
-                $(30, "FizzBuzz")
-        );
+        return new Object[]{
+            new Object[]{1, "1"},
+            new Object[]{2, "2"},
+            new Object[]{3, "Fizz"},
+            new Object[]{4, "4"},
+            new Object[]{5, "Buzz"},
+            new Object[]{6, "Fizz"},
+            new Object[]{7, "7"},
+            new Object[]{10, "Buzz"},
+            new Object[]{15, "FizzBuzz"},
+            new Object[]{30, "FizzBuzz"}
+        };
     }
 }
