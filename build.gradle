@@ -1,11 +1,26 @@
-apply plugin: 'java'
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0-M4'
+    }
+}
 
 repositories {
     mavenCentral()
 }
+
+ext.junit4Version = '4.12'
+ext.junitVintageVersion = '4.12.0-M4'
+ext.junitPlatformVersion = '1.0.0-M4'
+ext.junitJupiterVersion = '5.0.0-M4'
+
+apply plugin: 'java'
+apply plugin: 'org.junit.platform.gradle.plugin'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 dependencies {
 
@@ -14,8 +29,13 @@ dependencies {
     testCompile "ch.qos.logback:logback-classic:1.1.2"
     testCompile "ch.qos.logback:logback-core:1.1.2"
 
-    // JUnit
-    testCompile "junit:junit:4.12"
+    // JUnit Jupiter API and TestEngine implementation
+    testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
+    testRuntime("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
+
+    // If you also want to support JUnit 3 and JUnit 4 tests
+    testCompile("junit:junit:${junit4Version}")
+    testRuntime("org.junit.vintage:junit-vintage-engine:${junitVintageVersion}")
 
     // Mockito and its dependencies
     testCompile "org.mockito:mockito-core:1.10.8"
