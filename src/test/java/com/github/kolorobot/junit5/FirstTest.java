@@ -10,7 +10,7 @@ import org.junit.jupiter.api.TestInfo;
 import java.util.function.BiFunction;
 
 @Tag("fast")
-class FirstTest {
+class FirstTest { // not a public class
 
     @Test
     @DisplayName("My 1st JUnit 5 test! 😎")
