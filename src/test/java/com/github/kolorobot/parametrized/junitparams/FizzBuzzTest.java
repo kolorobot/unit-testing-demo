@@ -1,5 +1,6 @@
 package com.github.kolorobot.parametrized.junitparams;
 
+import com.github.kolorobot.parametrized.FizzBuzz;
 import junitparams.JUnitParamsRunner;
 import junitparams.Parameters;
 import org.junit.Test;

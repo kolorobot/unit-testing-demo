@@ -13,7 +13,6 @@ repositories {
 
 ext.junit4Version = '4.12'
 ext.junitVintageVersion = '4.12.0-M4'
-ext.junitPlatformVersion = '1.0.0-M4'
 ext.junitJupiterVersion = '5.0.0-M4'
 
 apply plugin: 'java'
@@ -29,9 +28,11 @@ dependencies {
     testCompile "ch.qos.logback:logback-classic:1.1.2"
     testCompile "ch.qos.logback:logback-core:1.1.2"
 
-    // JUnit Jupiter API and TestEngine implementation
+    // JUnit 5 Jupiter API and TestEngine implementation
     testCompile("org.junit.jupiter:junit-jupiter-api:${junitJupiterVersion}")
     testRuntime("org.junit.jupiter:junit-jupiter-engine:${junitJupiterVersion}")
+    // JUnit 5 @ParameterizedTest
+    testCompile("org.junit.jupiter:junit-jupiter-params:${junitJupiterVersion}")
 
     // If you also want to support JUnit 3 and JUnit 4 tests
     testCompile("junit:junit:${junit4Version}")
