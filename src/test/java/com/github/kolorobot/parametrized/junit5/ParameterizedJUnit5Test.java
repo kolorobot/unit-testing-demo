@@ -1,6 +1,7 @@
 package com.github.kolorobot.parametrized.junit5;
 
 import com.github.kolorobot.parametrized.FizzBuzz;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.TestReporter;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -10,7 +11,7 @@ import java.util.stream.Stream;
 
 import static org.assertj.core.api.StrictAssertions.assertThat;
 
-public class ParameterizedJUnit5Test {
+class ParameterizedJUnit5Test {
 
     private FizzBuzz fizzBuzz = new FizzBuzz();
 
@@ -34,7 +35,7 @@ public class ParameterizedJUnit5Test {
      */
     @ParameterizedTest(name = "{index} => calculate({0})")
     @MethodSource(names = {"divisibleByThree", "divisibleByThreeButNotFive"})
-    public void returnFizzForNumberDivisibleByThree(int number) {
+    void returnFizzForNumberDivisibleByThree(int number) {
         assertThat(fizzBuzz.calculate(number)).isEqualTo("Fizz");
     }
 
@@ -47,24 +48,23 @@ public class ParameterizedJUnit5Test {
      * </ul>
      */
     private static Stream<Integer> divisibleByThree() {
-        int[] ints = new int[]{18, 21};
         return Stream.of(3, 6, 9, 12);
     }
 
     // The returned array will be converted to a Stream
-    private static Integer[] divisibleByThreeButNotFive() {
-        return new Integer[]{18, 21};
+    private static String[] divisibleByThreeButNotFive() {
+        return new String[]{"18", "21"};
     }
 
 
     @ParameterizedTest(name = "{index} => calculate({0}) should return {1}")
     @MethodSource(names = {"fizzBuzz"})
-    public void fizzBuzz(int number, String expectedResult) {
+    void fizzBuzz(int number, String expectedResult) {
         assertThat(fizzBuzz.calculate(number)).isEqualTo(expectedResult);
     }
 
     /**
-     * Provides multiple arguments to fizzBuzz method. Returns Stream of org.junit.jupiter.params.provider.Arguments instances
+     * Provides multiple arguments to fizzBuzz method. Returns a stream of org.junit.jupiter.params.provider.Arguments instances
      */
     private static Stream<Arguments> fizzBuzz() {
         return Stream.of(
@@ -88,6 +88,11 @@ public class ParameterizedJUnit5Test {
     @CsvFileSource(resources = {"/fizzbuzz/fizzbuzz_1.csv", "/fizzbuzz/fizzbuzz_2.csv"}, delimiter = ';')
     void fizzBuzzCsv(int number, String expectedResult) {
         assertThat(fizzBuzz.calculate(number)).isEqualTo(expectedResult);
+    }
+
+    @Test
+    void nonParameterizedTest() {
+        assertThat(fizzBuzz.calculate(1)).isEqualTo("1");
     }
 
 }
