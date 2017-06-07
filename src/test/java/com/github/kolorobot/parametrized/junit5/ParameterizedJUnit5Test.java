@@ -1,6 +1,7 @@
 package com.github.kolorobot.parametrized.junit5;
 
 import com.github.kolorobot.parametrized.FizzBuzz;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInfo;
 import org.junit.jupiter.api.TestReporter;
@@ -93,6 +94,15 @@ class ParameterizedJUnit5Test {
     @Test
     void nonParameterizedTest() {
         assertThat(fizzBuzz.calculate(1)).isEqualTo("1");
+    }
+
+    @Nested
+    class NestedTest {
+        @ParameterizedTest(name = "{index} => calculate({0}) should return {1}")
+        @CsvFileSource(resources = {"/fizzbuzz/fizzbuzz_1.csv"}, delimiter = ';')
+        void fizzBuzzCsv(int number, String expectedResult) {
+            assertThat(fizzBuzz.calculate(number)).isEqualTo(expectedResult);
+        }
     }
 
 }

@@ -21,6 +21,8 @@ Navigate to newly created folder and run:
 
 Examples in this project are partly coming from blog posts at http://blog.codeleak.pl:
 
+- http://blog.codeleak.pl/2017/06/cleaner-parameterized-tests-with-junit-5.html
+- http://blog.codeleak.pl/2017/06/testing-exceptions-with-junit-5.html
 - http://blog.codeleak.pl/2015/04/junit-testing-exceptions-with-java-8.html
 - http://blog.codeleak.pl/2015/01/testing-with-files-and-directories-in.html
 - http://blog.codeleak.pl/2014/07/junit-testing-exception-with-java-8-and-lambda-expressions.html
