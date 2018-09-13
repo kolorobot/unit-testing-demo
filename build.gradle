@@ -2,9 +2,6 @@ buildscript {
     repositories {
         mavenCentral()
     }
-    dependencies {
-        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0-M4'
-    }
 }
 
 repositories {
@@ -12,11 +9,10 @@ repositories {
 }
 
 ext.junit4Version = '4.12'
-ext.junitVintageVersion = '4.12.0-M4'
-ext.junitJupiterVersion = '5.0.0-M4'
+ext.junitVintageVersion = '5.3.1'
+ext.junitJupiterVersion = '5.3.1'
 
 apply plugin: 'java'
-apply plugin: 'org.junit.platform.gradle.plugin'
 
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
@@ -45,7 +41,7 @@ dependencies {
     testCompile "org.objenesis:objenesis:2.1"
 
     // AssertJ
-    testCompile "org.assertj:assertj-core:3.1.0"
+    testCompile "org.assertj:assertj-core:3.11.1"
 
     // catch-exception is not supported anymore, will be removed in the future
     testCompile "com.googlecode.catch-exception:catch-exception:1.2.0"
@@ -54,6 +50,16 @@ dependencies {
     testCompile "pl.pragmatists:JUnitParams:1.0.5"
 }
 
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+    }
+    reports {
+        html.enabled = true
+    }
+}
+
 task wrapper(type: Wrapper) {
-    gradleVersion = '3.0'
+    gradleVersion = '4.10.1'
 }

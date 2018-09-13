@@ -10,7 +10,7 @@ import org.junit.jupiter.params.provider.*;
 
 import java.util.stream.Stream;
 
-import static org.assertj.core.api.StrictAssertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class ParameterizedJUnit5Test {
 
@@ -27,7 +27,7 @@ class ParameterizedJUnit5Test {
      */
     @ParameterizedTest(name = "{index} => calculate({0})")
     @ValueSource(ints = {1, 2, 4, 7, 11, 13, 14})
-    public void returnsNumberForNumberNotDivisibleByThreeAndFive(int number, TestInfo testInfo, TestReporter testReporter) {
+    void returnsNumberForNumberNotDivisibleByThreeAndFive(int number, TestInfo testInfo, TestReporter testReporter) {
         assertThat(fizzBuzz.calculate(number)).isEqualTo("" + number);
     }
 
@@ -35,7 +35,7 @@ class ParameterizedJUnit5Test {
      * The @org.junit.jupiter.params.provider.MethodSource refers to methods returning argument source
      */
     @ParameterizedTest(name = "{index} => calculate({0})")
-    @MethodSource(names = {"divisibleByThree", "divisibleByThreeButNotFive"})
+    @MethodSource({"divisibleByThree", "divisibleByThreeButNotFive"})
     void returnFizzForNumberDivisibleByThree(int number) {
         assertThat(fizzBuzz.calculate(number)).isEqualTo("Fizz");
     }
@@ -59,7 +59,7 @@ class ParameterizedJUnit5Test {
 
 
     @ParameterizedTest(name = "{index} => calculate({0}) should return {1}")
-    @MethodSource(names = {"fizzBuzz"})
+    @MethodSource("fizzBuzz")
     void fizzBuzz(int number, String expectedResult) {
         assertThat(fizzBuzz.calculate(number)).isEqualTo(expectedResult);
     }
@@ -69,16 +69,16 @@ class ParameterizedJUnit5Test {
      */
     private static Stream<Arguments> fizzBuzz() {
         return Stream.of(
-            ObjectArrayArguments.create(1, "1"),
-            ObjectArrayArguments.create(2, "2"),
-            ObjectArrayArguments.create(3, "Fizz"),
-            ObjectArrayArguments.create(4, "4"),
-            ObjectArrayArguments.create(5, "Buzz"),
-            ObjectArrayArguments.create(6, "Fizz"),
-            ObjectArrayArguments.create(7, "7"),
-            ObjectArrayArguments.create(8, "8"),
-            ObjectArrayArguments.create(9, "Fizz"),
-            ObjectArrayArguments.create(15, "FizzBuzz")
+            Arguments.of(1, "1"),
+            Arguments.of(2, "2"),
+            Arguments.of(3, "Fizz"),
+            Arguments.of(4, "4"),
+            Arguments.of(5, "Buzz"),
+            Arguments.of(6, "Fizz"),
+            Arguments.of(7, "7"),
+            Arguments.of(8, "8"),
+            Arguments.of(9, "Fizz"),
+            Arguments.of(15, "FizzBuzz")
         );
     }
 
@@ -86,7 +86,7 @@ class ParameterizedJUnit5Test {
      * Multiple arguments provided by 2 CSV files.
      */
     @ParameterizedTest(name = "{index} => calculate({0}) should return {1}")
-    @CsvFileSource(resources = {"/fizzbuzz/fizzbuzz_1.csv", "/fizzbuzz/fizzbuzz_2.csv"}, delimiter = ';')
+    @CsvFileSource(resources = {"/fizzbuzz/fizzbuzz_1.csv", "/fizzbuzz/fizzbuzz_2.csv"}, delimiter = ';', numLinesToSkip = 1)
     void fizzBuzzCsv(int number, String expectedResult) {
         assertThat(fizzBuzz.calculate(number)).isEqualTo(expectedResult);
     }
